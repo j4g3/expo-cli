@@ -63,7 +63,7 @@ function _renderExpoKitDependency(options, sdkVersion) {
   let attributes;
   if (options.expoKitPath) {
     attributes = {
-      path: options.expoKitPath,
+      podspec: path.join(options.expoKitPath, 'ExpoKit.podspec'),
     };
   } else if (options.expoKitTag) {
     attributes = {
@@ -367,9 +367,9 @@ async function _renderPodDependenciesAsync(dependenciesConfigPath, options) {
       builder += '\n';
     }
     const otherPodfileFlags = options.isPodfile && dependency.otherPodfileFlags;
-    builder += `  ${type} '${dependency.name}', '${dependency.version}'${noWarningsFlag}${
-      otherPodfileFlags || ''
-    }`;
+    builder += `  ${type} '${dependency.name}', '${
+      dependency.version
+    }'${noWarningsFlag}${otherPodfileFlags || ''}`;
     return builder;
   });
   return depsStrings.join('\n');
